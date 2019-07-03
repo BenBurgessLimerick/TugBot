@@ -1,0 +1,12 @@
+<launch>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find tugbot_2dnav)/config/costmap_common.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find tugbot_2dnav)/config/costmap_common.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find tugbot_2dnav)/config/costmap_local.yaml" command="load" />
+    <rosparam file="$(find tugbot_2dnav)/config/costmap_global.yaml" command="load" />
+    <rosparam file="$(find tugbot_2dnav)/config/planner.yaml" command="load" />
+     <remap from="cmd_vel" to="/tugbot_velocity_controller/cmd_vel"/>
+  </node>
+
+</launch>

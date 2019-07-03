@@ -1,0 +1,13 @@
+<launch>
+  <node pkg="robot_localization" type="ekf_localization_node" name="tugbot_localization" clear_params="true">
+    <rosparam command="load" file="$(find tugbot_ekf_localization)/config/ekf_config.yaml" />
+
+   <!--  Placeholder for output topic remapping -->
+  <remap from="odometry/filtered" to="odom"/>
+
+  </node>
+  <node pkg="tf" type="static_transform_publisher" name="map_frame_broadcast" args="0 0 0 0 0 0 1 map odom 100"/>
+
+  <node pkg="tf" type="static_transform_publisher" name="imu_frame_broadcast" args="0 0 0 0 0 0 1 base_link inertial_link 100"/>
+</launch>
+
