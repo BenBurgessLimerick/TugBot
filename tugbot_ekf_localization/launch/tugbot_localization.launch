@@ -8,6 +8,6 @@
   </node>
   <node pkg="tf" type="static_transform_publisher" name="map_frame_broadcast" args="0 0 0 0 0 0 1 map odom 100"/>
 
-  <node pkg="tf" type="static_transform_publisher" name="imu_frame_broadcast" args="0 0 0 0 0 0 1 base_link inertial_link 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="imu_frame_broadcast" args="0 0 0 -1.5707963 0 3.14159265 base_link inertial_link 100"/>
 </launch>
 
