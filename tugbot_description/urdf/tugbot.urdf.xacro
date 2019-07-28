@@ -79,7 +79,7 @@
       </geometry>
     </visual>
     <collision>
-      <origin xyz="0 0 0.03" rpy="0 0 0" />
+      <origin xyz="0 0 0.04" rpy="0 0 0" />
       <geometry>
         <box size="${base_x_size} ${base_y_size} ${base_z_size/2}"/>
       </geometry>
