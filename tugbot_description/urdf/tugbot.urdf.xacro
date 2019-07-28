@@ -6,7 +6,7 @@
   
   <xacro:property name="M_PI" value="3.14159"/>
 
-  <xacro:macro name="tugbot_wheel" params="wheel_prefix *joint_pose">
+  <xacro:macro name="tugbot_wheel" params="wheel_prefix left_wheel *joint_pose">
 		<link name="${wheel_prefix}_wheel_link">
 			<inertial>
 				<mass value="2.637" />
@@ -14,7 +14,12 @@
 				<inertia  ixx="0.02467" ixy="0" ixz="0" iyy="0.04411" iyz="0" izz="0.02467" />
 			</inertial>
 			<visual>
-				<origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+        <xacro:if value="${left_wheel}">
+				  <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+        </xacro:if>
+        <xacro:unless value="${left_wheel}">
+				  <origin xyz="0 0 0" rpy="0 0 ${-M_PI/2}" />
+        </xacro:unless>
 				<geometry>
 					<mesh filename="package://tugbot_description/meshes/wheel.dae" />
 				</geometry>
@@ -86,11 +91,12 @@
     </collision>
   </link>
 
+    <!-- TODO: Work out actual inerias and mass-->
     <link name="inertial_link">
     <inertial>
-      <mass value="10.0" />
-      <origin xyz="-0.00065 -0.085 0.062" />
-      <inertia ixx="0.6022" ixy="-0.02364" ixz="-0.1197" iyy="1.7386" iyz="-0.001544" izz="2.0296" />
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.009375" ixy="0" ixz="0" iyy="0.009375" iyz="0" izz="0.009375" />
     </inertial>
   </link>
 
@@ -100,17 +106,17 @@
     <child link="inertial_link" />
   </joint>
 
-  <xacro:tugbot_wheel wheel_prefix="front_left">
+  <xacro:tugbot_wheel wheel_prefix="front_left" left_wheel="true">
     <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:tugbot_wheel>
-  <xacro:tugbot_wheel wheel_prefix="front_right">
-    <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 ${M_PI}" />
+  <xacro:tugbot_wheel wheel_prefix="front_right" left_wheel="false">
+    <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:tugbot_wheel>
-  <xacro:tugbot_wheel wheel_prefix="rear_left">
+  <xacro:tugbot_wheel wheel_prefix="back_left" left_wheel="true"> 
     <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:tugbot_wheel>
-  <xacro:tugbot_wheel wheel_prefix="rear_right">
-    <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 ${M_PI}" />
+  <xacro:tugbot_wheel wheel_prefix="back_right" left_wheel="false">
+    <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:tugbot_wheel> 
 
   <gazebo>
