@@ -11,7 +11,7 @@
 
   <group ns="$(arg robot_namespace)">
     <include file="$(find tugbot_base)/launch/tugbot_control.launch" />
-
+    <include file="$(find tugbot_ekf_localization)/launch/tugbot_localization.launch"/>
 
     <node name="spawn_tugbot_model" pkg="gazebo_ros" type="spawn_model"
         args="-x $(arg x)
