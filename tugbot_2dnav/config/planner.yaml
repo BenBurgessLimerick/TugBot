@@ -7,5 +7,6 @@ TrajectoryPlannerROS:
   acc_lim_th: 3.2
   acc_lim_x: 2.5
   acc_lim_y: 2.5
-
+ 
+  transform_timeout: 20 
   holonomic_robot: false

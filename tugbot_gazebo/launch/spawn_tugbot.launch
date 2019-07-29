@@ -10,8 +10,8 @@
 
 
   <group ns="$(arg robot_namespace)">
-    <include file="$(find tugbot_description)/launch/description.launch" >
-    </include>
+    <include file="$(find tugbot_base)/launch/tugbot_control.launch" />
+
 
     <node name="spawn_tugbot_model" pkg="gazebo_ros" type="spawn_model"
         args="-x $(arg x)

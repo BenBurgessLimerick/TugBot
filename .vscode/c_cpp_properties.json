@@ -1,0 +1,29 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/home/bbl/catkin_ws/devel/include",
+                "/opt/ros/kinetic/include",
+                "/home/bbl/catkin_ws/src/imu_tools/imu_complementary_filter/include",
+                "/home/bbl/catkin_ws/src/imu_tools/imu_filter_madgwick/include",
+                "/home/bbl/catkin_ws/src/navio_ros/include",
+                "/home/bbl/catkin_ws/src/odrive_cpp_ros/include",
+                "/home/bbl/catkin_ws/src/rpg_svo/svo/include",
+                "/home/bbl/catkin_ws/src/rpg_svo/svo_ros/include",
+                "/home/bbl/catkin_ws/src/rpg_vikit/vikit_common/include",
+                "/home/bbl/catkin_ws/src/rpg_vikit/vikit_ros/include",
+                "/usr/include"
+            ],
+            "name": "Linux",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
