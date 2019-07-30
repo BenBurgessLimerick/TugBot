@@ -23,5 +23,17 @@
               -param robot_description
               -model $(arg robot_namespace)" />
 
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+      <remap from="cloud_in" to="velodyne_points" />
+      <rosparam>
+        min_height: 0.1
+        max_height: 1.0
+        angle_min: -3.141592
+        angle_max: 3.141592
+        range_max: 10
+        range_min: 0
+      </rosparam>
+    </node>
+
   </group>
 </launch>

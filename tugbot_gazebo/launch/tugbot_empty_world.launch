@@ -2,7 +2,7 @@
 
 <launch>
 
-  <arg name="world_name" default="worlds/empty.world"/>
+  <arg name="world_name" default="$(find tugbot_gazebo)/worlds/random_blocks.world"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world_name)"/> <!-- world_name is wrt GAZEBO_RESOURCE_PATH environment variable -->

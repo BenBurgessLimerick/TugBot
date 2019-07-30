@@ -9,9 +9,14 @@
   <xacro:macro name="tugbot_wheel" params="wheel_prefix left_wheel *joint_pose">
 		<link name="${wheel_prefix}_wheel_link">
 			<inertial>
-				<mass value="2.637" />
-				<origin xyz="0 0 0" />
-				<inertia  ixx="0.02467" ixy="0" ixz="0" iyy="0.04411" iyz="0" izz="0.02467" />
+				<mass value="1.0" />
+				 <xacro:if value="${left_wheel}">
+				  <origin xyz="0 0.03 0" />
+        </xacro:if>
+        <xacro:unless value="${left_wheel}">
+				  <origin xyz="0 -0.03 0"/>
+        </xacro:unless>
+				<inertia  ixx="0.002467" ixy="0" ixz="0" iyy="0.004411" iyz="0" izz="0.002467" />
 			</inertial>
 			<visual>
         <xacro:if value="${left_wheel}">
@@ -25,7 +30,13 @@
 				</geometry>
 			</visual>
 			<collision>
-				<origin xyz="0 0.03 0" rpy="${M_PI/2} 0 0" />
+        <xacro:if value="${left_wheel}">
+				  <origin xyz="0 0.03 0" rpy="${M_PI/2} 0 0" />
+        </xacro:if>
+        <xacro:unless value="${left_wheel}">
+				  <origin xyz="0 -0.03 0" rpy="${M_PI/2} 0 0" />
+        </xacro:unless>
+
 				<geometry>
 					<cylinder length="${wheel_length}" radius="${wheel_radius}" />
 				</geometry>
@@ -96,7 +107,7 @@
     <inertial>
       <mass value="1.0" />
       <origin xyz="0 0 0" />
-      <inertia ixx="0.009375" ixy="0" ixz="0" iyy="0.009375" iyz="0" izz="0.009375" />
+      <inertia ixx="0.010375" ixy="0" ixz="0" iyy="0.005375" iyz="0" izz="0.02375" />
     </inertial>
   </link>
 
@@ -118,6 +129,12 @@
   <xacro:tugbot_wheel wheel_prefix="back_right" left_wheel="false">
     <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:tugbot_wheel> 
+
+  <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+  <VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points">
+      <!-- The 0.2 will most likely have to be adjusted to fit -->
+      <origin xyz="0 0 0.1" rpy="0 0 0" />
+  </VLP-16>
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
