@@ -18,5 +18,5 @@ The skid steer design of the TugBot is similar to the design of Clearpath’s [H
 
 ## tugbot_base
 The tugbot_base package is reponsible for the interface from the ROS system to the ODrive motor drivers. The convention for the control of actuators in a ROS based system is to develop a hardware interface that can be used with the [ros_control](http://wiki.ros.org/ros_control) package.
-
-The four wheels are represented by four joints that could be controlled through a variety of interfaces. For the TugBot, velocity controller of the wheels is desired. This is achieved through the implementation of the velocity joint hardware interface. The interface enables the communication of velocity set points the ODrive axes, as well as the communication of current motor positions back to the ros_control system.
+The four wheels are represented by four joints that could be controlled through a variety of interfaces. For the TugBot, velocity controller of the wheels is desired. This is achieved through the implementation of the velocity joint hardware interface. The interface enables the communication of velocity set points the ODrive axes. The joint state hardware interface is also implemented for the four axes, which is used to communicate the current motor positions and speeds.
+Developing the hardware interface under the ros_control architecture makes it easy to utilise existing controllers on the TugBot. The [diff_drive_controller](link). Is an implementation of a controller for differential drive and skid steer robots. 
