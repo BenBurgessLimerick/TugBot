@@ -23,3 +23,14 @@ The tugbot_base package is reponsible for the interface from the ROS system to t
 The four wheels are represented by four joints that can be controlled through a variety of interfaces. For the TugBot, velocity controller of the wheels is desired. This is achieved through the implementation of the velocity joint hardware interface. The interface enables the communication of velocity set points the ODrive axes. The joint state hardware interface is also implemented for the four axes, which is used to communicate the current motor positions and speeds.
 
 Developing the hardware interface under the ros_control architecture makes it easy to utilise existing controllers developed for other robots on the TugBot. The [diff_drive_controller](http://wiki.ros.org/diff_drive_controller). Is an implementation of a controller for differential drive and skid steer robots. By defining the joint velocity and joint state interfaces as well as some basic geometry of the TugBot the controller is adapted to transform a [Twist](http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html) velocity command for the robot into the necessary wheel velocities to achieve the desired motion, and communicate these to the ODrives. The diff_drive_controller also connects to the joint state interfaces and provides an estimated pose and velocity based on the odometry given by the encoders.
+
+Using ros_control also allows for straightforward integration with Gazebo, the robot simulator widely used for ROS projects. 
+
+## tugbot_description
+The tugbot_description package contains all the information about the geometry of the TugBot. Critically, tugbot.urdf.xacro containes the the definition of the relationships between the various links in the robot. For example, it defines where the wheels are relative to the chassis of the robot. The file also defines the collision geometry and the inertial properties of the various links, which is used for the simulation. The package also stores all the meshes of the robot model that are used for visual representation in rviz and Gazebo. 
+
+## tugbot_ekf_localization
+The tugbot_ekf_localization package contains the configuration of the [robot_localization](http://wiki.ros.org/robot_localization) used for TugBot. robot_localization implements an extended kalman filter to estimate the pose of a robot by fusing various inputs. For the TugBot, these inputs are the odometry provided by ros_control, and the IMU messages from the onboard IMU. 
+
+## tugbot_gazebo
+The tugbot_gazebo package contains the setup for the Gazebo simulation of the TugBot. [Gazebo](http://gazebosim.org/) provides a physics based simulation of robots. The is critical for developing features without access to the robot hardware. The package contains several .world files which contain the definition for several environments used to develop and test TugBot features. 
