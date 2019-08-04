@@ -29,6 +29,10 @@ Using ros_control also allows for straightforward integration with Gazebo, the r
 ## tugbot_description
 The tugbot_description package contains all the information about the geometry of the TugBot. Critically, tugbot.urdf.xacro containes the the definition of the relationships between the various links in the robot. For example, it defines where the wheels are relative to the chassis of the robot. The file also defines the collision geometry and the inertial properties of the various links, which is used for the simulation. The package also stores all the meshes of the robot model that are used for visual representation in rviz and Gazebo. 
 
+The urdf description can be quickly preview in rviz using a launch file from the urdf_tutorial package. The results of running `roslaunch tugbot_description view_urdf.launch` are shown below.
+
+![TugBot description](images/tugbot_description/view_robot.png)
+
 ## tugbot_ekf_localization
 The tugbot_ekf_localization package contains the configuration of the [robot_localization](http://wiki.ros.org/robot_localization) used for TugBot. robot_localization implements an extended kalman filter to estimate the pose of a robot by fusing various inputs. For the TugBot, these inputs are the odometry provided by ros_control, and the IMU messages from the onboard IMU. 
 
