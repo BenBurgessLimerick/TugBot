@@ -31,7 +31,7 @@ The tugbot_description package contains all the information about the geometry o
 
 The urdf description can be quickly preview in rviz using a launch file from the urdf_tutorial package. The results of running `roslaunch tugbot_description view_urdf.launch` are shown below.
 
-![TugBot description](images/tugbot_description/view_robot.png)
+![TugBot description](images/tugbot_description/view_robot_white.png)
 
 ## tugbot_ekf_localization
 The tugbot_ekf_localization package contains the configuration of the [robot_localization](http://wiki.ros.org/robot_localization) used for TugBot. robot_localization implements an extended kalman filter to estimate the pose of a robot by fusing various inputs. For the TugBot, these inputs are the odometry provided by ros_control, and the IMU messages from the onboard IMU. 
