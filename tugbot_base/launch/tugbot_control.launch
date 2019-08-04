@@ -6,5 +6,9 @@
 
     <node name="tugbot_joint_publisher" pkg="controller_manager" type="spawner" args="tugbot_joint_publisher tugbot_velocity_controller"/>
 
-    <include file="$(find tugbot_description)/launch/description.launch"/>
+    <include file="$(find tugbot_description)/launch/description.launch">
+        <arg name="vlp16_enabled" value="true"/>
+    </include>
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_st_pub"/>
+
 </launch>

@@ -10,5 +10,4 @@
     robot_namespace:=$(arg robot_namespace)
     vlp16_enabled:=$(arg vlp16_enabled)
     " />
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_st_pub"/>
-</launch>
+  </launch>

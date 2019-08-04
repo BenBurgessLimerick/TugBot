@@ -38,3 +38,10 @@ The tugbot_ekf_localization package contains the configuration of the [robot_loc
 
 ## tugbot_gazebo
 The tugbot_gazebo package contains the setup for the Gazebo simulation of the TugBot. [Gazebo](http://gazebosim.org/) provides a physics based simulation of robots. The is critical for developing features without access to the robot hardware. The package contains several .world files which contain the definition for several environments used to develop and test TugBot features. 
+
+
+## tugbot_slam
+
+The video below demonstrates 2D SLAM using VLP-16 simulated in Gazebo. 
+
+[![TugBot SLAM](http://img.youtube.com/vi/22iVpP1quD4/0.jpg)](http://www.youtube.com/watch?v=22iVpP1quD4 "TugBot SLAM")
