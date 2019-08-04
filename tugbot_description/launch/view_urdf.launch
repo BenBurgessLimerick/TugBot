@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+<include file="$(find urdf_tutorial)/launch/display.launch" >
+<arg name="model" value="$(find tugbot_description)/urdf/tugbot.urdf.xacro"/>
+</include>
+
+</launch>

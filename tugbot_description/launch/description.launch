@@ -3,10 +3,12 @@
 <launch>
 
   <arg name="robot_namespace" default="/"/>
+  <arg name="vlp16_enabled" default="false"/>
   
   <param name="robot_description" command="$(find xacro)/xacro '$(find tugbot_description)/urdf/tugbot.urdf.xacro'
     --inorder
     robot_namespace:=$(arg robot_namespace)
+    vlp16_enabled:=$(arg vlp16_enabled)
     " />
-
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_st_pub"/>
 </launch>

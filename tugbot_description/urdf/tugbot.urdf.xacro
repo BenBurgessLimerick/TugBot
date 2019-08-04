@@ -3,6 +3,7 @@
 <robot name="tugbot" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <xacro:arg name="robot_namespace" default="/" />
+  <xacro:arg name="vlp16_enabled" default="false" />
   
   <xacro:property name="M_PI" value="3.14159"/>
 
@@ -130,11 +131,13 @@
     <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
   </xacro:tugbot_wheel> 
 
-  <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
-  <VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points">
-      <!-- The 0.2 will most likely have to be adjusted to fit -->
-      <origin xyz="0 0 0.1" rpy="0 0 0" />
-  </VLP-16>
+  <xacro:if value="$(arg vlp16_enabled)">
+    <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+    <VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points">
+        <!-- The 0.2 will most likely have to be adjusted to fit -->
+        <origin xyz="0 0 0.1" rpy="0 0 0" />
+    </VLP-16>
+  </xacro:if>
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
