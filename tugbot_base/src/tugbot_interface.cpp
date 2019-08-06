@@ -19,10 +19,10 @@
 class TugBot : public hardware_interface::RobotHW {
     public:
     TugBot() {
-        hardware_interface::JointStateHandle state_handle_front_left("front_left", &pos[0], &vel[0], &eff[0]);
-        hardware_interface::JointStateHandle state_handle_back_left("back_left", &pos[1], &vel[1], &eff[1]);
-        hardware_interface::JointStateHandle state_handle_front_right("front_right", &pos[2], &vel[2], &eff[2]);
-        hardware_interface::JointStateHandle state_handle_back_right("back_right", &pos[3], &vel[3], &eff[3]);
+        hardware_interface::JointStateHandle state_handle_front_left("front_left_wheel", &pos[0], &vel[0], &eff[0]);
+        hardware_interface::JointStateHandle state_handle_back_left("back_left_wheel", &pos[1], &vel[1], &eff[1]);
+        hardware_interface::JointStateHandle state_handle_front_right("front_right_wheel", &pos[2], &vel[2], &eff[2]);
+        hardware_interface::JointStateHandle state_handle_back_right("back_right_wheel", &pos[3], &vel[3], &eff[3]);
         
         jnt_state_interface.registerHandle(state_handle_front_left);
         jnt_state_interface.registerHandle(state_handle_back_left);
@@ -31,10 +31,10 @@ class TugBot : public hardware_interface::RobotHW {
 
         registerInterface(&jnt_state_interface);
 
-        hardware_interface::JointHandle vel_handle_front_left(jnt_state_interface.getHandle("front_left"), &cmd[0]);
-        hardware_interface::JointHandle vel_handle_back_left(jnt_state_interface.getHandle("back_left"), &cmd[1]);
-        hardware_interface::JointHandle vel_handle_front_right(jnt_state_interface.getHandle("front_right"), &cmd[2]);
-        hardware_interface::JointHandle vel_handle_back_right(jnt_state_interface.getHandle("back_right"), &cmd[3]);
+        hardware_interface::JointHandle vel_handle_front_left(jnt_state_interface.getHandle("front_left_wheel"), &cmd[0]);
+        hardware_interface::JointHandle vel_handle_back_left(jnt_state_interface.getHandle("back_left_wheel"), &cmd[1]);
+        hardware_interface::JointHandle vel_handle_front_right(jnt_state_interface.getHandle("front_right_wheel"), &cmd[2]);
+        hardware_interface::JointHandle vel_handle_back_right(jnt_state_interface.getHandle("back_right_wheel"), &cmd[3]);
         
         for (int i = 0; i < 4; ++i) {
             cmd[i] = 0.0;

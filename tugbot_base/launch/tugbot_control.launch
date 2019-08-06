@@ -2,7 +2,7 @@
 <launch>
     <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
     <rosparam command="load" file="$(find tugbot_base)/config/control.yaml" />
-    <!--<node name="tugbot_interface" pkg="odrive_cpp_ros" type="tugbot_interface"/>-->
+    <node name="tugbot_interface2" pkg="tugbot_base" type="tugbot_interface2"/>
 
     <node name="tugbot_joint_publisher" pkg="controller_manager" type="spawner" args="tugbot_joint_publisher tugbot_velocity_controller"/>
 
