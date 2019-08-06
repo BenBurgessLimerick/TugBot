@@ -9,6 +9,8 @@ These two objectives provide the constraints for the design of the system. In pa
 - Speed required: walking speed, 0-5 km/h
 - Terrain capabilities: Road surfaces, hill between lake and house
 
+![TugBot](images/tugbot_hardware/base_picture.jpeg)
+
 # TugBot Design
 The TugBot is a four wheel drive skid steer platform. Propulsion is achieved through repurposed HoverBoard wheels controlled by ODrive brushless motor drivers. The HoverBoard wheels provide an integrated motor and wheel assembly with position feedback given by a Hall effect encoder. The wheels are easy to mount by clamping the fixed shaft onto the robot’s chassis. The ODrive motor controllers provides a digital interface to the precise control of brushless motors. A guide for controlling a HoverBoard wheel with an ODrive controller can be found [here](https://github.com/madcowswe/ODrive/blob/master/docs/hoverboard.md).
 
