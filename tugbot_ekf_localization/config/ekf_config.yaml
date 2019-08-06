@@ -8,7 +8,7 @@ transform_time_offset: 0.0
 transform_timeout: 0.0
 
 print_diagnostics: true
-publish_tf: false
+publish_tf: true
 
 publish_acceleration: false
 
