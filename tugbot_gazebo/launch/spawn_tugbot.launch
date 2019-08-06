@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="robot_namespace" default="/"/>
+
+  <arg name="x" default="0.0"/>
+  <arg name="y" default="0.0"/>
+  <arg name="z" default="0.0"/>
+  <arg name="yaw" default="0.0"/>
+
+
+  <group ns="$(arg robot_namespace)">
+    <include file="$(find tugbot_base)/launch/tugbot_control.launch" />
+    <include file="$(find tugbot_ekf_localization)/launch/tugbot_localization.launch"/>
+
+    <node name="spawn_tugbot_model" pkg="gazebo_ros" type="spawn_model"
+        args="-x $(arg x)
+              -y $(arg y)
+              -z $(arg z)
+              -Y $(arg yaw)
+              -unpause
+              -urdf
+              -param robot_description
+              -model $(arg robot_namespace)" />
+
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+      <remap from="cloud_in" to="velodyne_points" />
+      <rosparam>
+        min_height: 0.1
+        max_height: 1.0
+        angle_min: -3.141592
+        angle_max: 3.141592
+        range_max: 10
+        range_min: 0
+      </rosparam>
+    </node>
+
+  </group>
+</launch>

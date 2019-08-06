@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+
+<robot name="tugbot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:arg name="robot_namespace" default="/" />
+  <xacro:arg name="vlp16_enabled" default="false" />
+  
+  <xacro:property name="M_PI" value="3.14159"/>
+
+  <xacro:macro name="tugbot_wheel" params="wheel_prefix left_wheel *joint_pose">
+		<link name="${wheel_prefix}_wheel_link">
+			<inertial>
+				<mass value="1.0" />
+				 <xacro:if value="${left_wheel}">
+				  <origin xyz="0 0.03 0" />
+        </xacro:if>
+        <xacro:unless value="${left_wheel}">
+				  <origin xyz="0 -0.03 0"/>
+        </xacro:unless>
+				<inertia  ixx="0.002467" ixy="0" ixz="0" iyy="0.004411" iyz="0" izz="0.002467" />
+			</inertial>
+			<visual>
+        <xacro:if value="${left_wheel}">
+				  <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}" />
+        </xacro:if>
+        <xacro:unless value="${left_wheel}">
+				  <origin xyz="0 0 0" rpy="0 0 ${-M_PI/2}" />
+        </xacro:unless>
+				<geometry>
+					<mesh filename="package://tugbot_description/meshes/wheel.dae" />
+				</geometry>
+			</visual>
+			<collision>
+        <xacro:if value="${left_wheel}">
+				  <origin xyz="0 0.03 0" rpy="${M_PI/2} 0 0" />
+        </xacro:if>
+        <xacro:unless value="${left_wheel}">
+				  <origin xyz="0 -0.03 0" rpy="${M_PI/2} 0 0" />
+        </xacro:unless>
+
+				<geometry>
+					<cylinder length="${wheel_length}" radius="${wheel_radius}" />
+				</geometry>
+			</collision>
+		</link>
+
+		<gazebo reference="${wheel_prefix}_wheel_link">
+			<mu1 value="1.0"/>
+			<mu2 value="1.0"/>
+			<kp value="10000000.0" />
+			<kd value="1.0" />
+			<fdir1 value="1 0 0"/>
+		</gazebo>
+
+		<joint name="${wheel_prefix}_wheel" type="continuous">
+			<parent link="base_link"/>
+			<child link="${wheel_prefix}_wheel_link"/>
+			<xacro:insert_block name="joint_pose"/>
+			<axis xyz="0 1 0" rpy="0 0 0" />
+		</joint>
+
+		<transmission name="${wheel_prefix}_wheel_trans" type="SimpleTransmission">
+			<type>transmission_interface/SimpleTransmission</type>
+			<actuator name="${wheel_prefix}_wheel_motor">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+			<joint name="${wheel_prefix}_wheel">
+				<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+			</joint>
+		</transmission>
+
+	</xacro:macro>
+
+
+
+  <!-- Base Size -->
+  <xacro:property name="base_x_size" value="0.44" />
+  <xacro:property name="base_y_size" value="0.22" />
+  <xacro:property name="base_z_size" value="0.17" />
+
+  <!-- Wheel Mounting Positions -->
+  <xacro:property name="wheelbase" value="0.26" />
+  <xacro:property name="track" value="0.22" />
+  <xacro:property name="wheel_vertical_offset" value="0.02" />
+
+  <!-- Wheel Properties -->
+  <xacro:property name="wheel_length" value="0.05" />
+  <xacro:property name="wheel_radius" value="0.08" />
+
+  <!-- Base link is the center of the robot's bottom plate -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://tugbot_description/meshes/base_link.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.035" rpy="0 0 0" />
+      <geometry>
+        <box size="${base_x_size} ${base_y_size} ${base_z_size/2}"/>
+      </geometry>
+    </collision>
+  </link>
+
+    <!-- TODO: Work out actual inerias and mass-->
+    <link name="inertial_link">
+    <inertial>
+      <mass value="1.0" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.010375" ixy="0" ixz="0" iyy="0.005375" iyz="0" izz="0.02375" />
+    </inertial>
+  </link>
+
+  <joint name="inertial_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="inertial_link" />
+  </joint>
+
+  <xacro:tugbot_wheel wheel_prefix="front_left" left_wheel="true">
+    <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+  </xacro:tugbot_wheel>
+  <xacro:tugbot_wheel wheel_prefix="front_right" left_wheel="false">
+    <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+  </xacro:tugbot_wheel>
+  <xacro:tugbot_wheel wheel_prefix="back_left" left_wheel="true"> 
+    <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+  </xacro:tugbot_wheel>
+  <xacro:tugbot_wheel wheel_prefix="back_right" left_wheel="false">
+    <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+  </xacro:tugbot_wheel> 
+
+  <xacro:if value="$(arg vlp16_enabled)">
+    <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
+    <VLP-16 parent="base_link" name="velodyne" topic="/velodyne_points">
+        <!-- The 0.2 will most likely have to be adjusted to fit -->
+        <origin xyz="0 0 0.1" rpy="0 0 0" />
+    </VLP-16>
+  </xacro:if>
+
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>$(arg robot_namespace)</robotNamespace>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+      <robotNamespace>$(arg robot_namespace)</robotNamespace>
+      <updateRate>50.0</updateRate>
+      <bodyName>base_link</bodyName>
+      <topicName>/navio_imu_mpu</topicName>
+      <accelDrift>0.005 0.005 0.005</accelDrift>
+      <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+      <rateDrift>0.005 0.005 0.005 </rateDrift>
+      <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+      <headingDrift>0.005</headingDrift>
+      <headingGaussianNoise>0.005</headingGaussianNoise>
+    </plugin>
+  </gazebo>
+
+</robot>
