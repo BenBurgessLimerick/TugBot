@@ -15,7 +15,12 @@ These two objectives provide the constraints for the design of the system. In pa
 # TugBot Design
 The TugBot is a four wheel drive skid steer platform. Propulsion is achieved through repurposed HoverBoard wheels controlled by ODrive brushless motor drivers. The HoverBoard wheels provide an integrated motor and wheel assembly with position feedback given by a Hall effect encoder. The wheels are easy to mount by clamping the fixed shaft onto the robot’s chassis. The ODrive motor controllers provides a digital interface to the precise control of brushless motors. A guide for controlling a HoverBoard wheel with an ODrive controller can be found [here](https://github.com/madcowswe/ODrive/blob/master/docs/hoverboard.md).
 
-Unfortunately, the ODrive does not yet have a well supported C++ ROS driver, so a basic driver was developed: [odrive_cpp_ros](https://github.com/BenBurgessLimerick/odrive_cpp_ros).
+Unfortunately, the ODrive does not yet have a well supported C++ ROS driver, so a basic driver was developed: [odrive_cpp_ros](https://github.com/BenBurgessLimerick/odrive_cpp_
+
+# TugBot iOS Remote Control App
+The TugBot can be controlled from an iOS enabled phone or tablet through the custom built iOS app. This app publishes ROS messages to control the robot. I’m the screenshot of the interface below, the beach-scape picture is a placeholder for what will become a live video feed from the TugBot’s on board camera. 
+
+![TugBot iOS App](ED43DE6C-0CCA-4DB3-9CCC-B185DBD83CA2.png)
 
 # ROS Packages
 The skid steer design of the TugBot is similar to the design of Clearpath’s [Husky](https://clearpathrobotics.com/husky-unmanned-ground-vehicle-robot/). The Husky is also developed on the ROS platform and provided the perfect starting point to begin the journey of learning ROS, and deploying it on custom hardware. Most of the ROS packages below are adapted from packages designed for the Husky ([available here](https://github.com/husky/husky)).
@@ -46,4 +51,5 @@ The tugbot_gazebo package contains the setup for the Gazebo simulation of the Tu
 ## tugbot_slam
 
 The video below demonstrates 2D SLAM using a VLP-16 simulated in Gazebo. TugBot uses Google’s Cartographer SLAM package for ROS. The system was tested in the Gazebo simulation environment. The setup includes a simulation of an IMU which outputs data in the same format as the NAVIO IMU on the physical robot. The simulation also includes a Velodyne VLP-16 to provide point cloud data. In the video below, the robot is driven using the iOS remote control app, and builds up a detailed map of its environment.
+
 [![TugBot SLAM](http://img.youtube.com/vi/22iVpP1quD4/0.jpg)](http://www.youtube.com/watch?v=22iVpP1quD4 "TugBot SLAM")
