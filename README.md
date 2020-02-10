@@ -40,11 +40,10 @@ The urdf description can be quickly preview in rviz using a launch file from the
 The tugbot_ekf_localization package contains the configuration of the [robot_localization](http://wiki.ros.org/robot_localization) used for TugBot. robot_localization implements an extended kalman filter to estimate the pose of a robot by fusing various inputs. For the TugBot, these inputs are the odometry provided by ros_control, and the IMU messages from the onboard IMU. 
 
 ## tugbot_gazebo
-The tugbot_gazebo package contains the setup for the Gazebo simulation of the TugBot. [Gazebo](http://gazebosim.org/) provides a physics based simulation of robots. The is critical for developing features without access to the robot hardware. The package contains several .world files which contain the definition for several environments used to develop and test TugBot features. 
+The tugbot_gazebo package contains the setup for the Gazebo simulation of the TugBot. [Gazebo](http://gazebosim.org/) provides a physics based simulation of robots. The is critical for developing features without access to the robot hardware. The package contains several .world files which contain the definition for several environments used to develop and test TugBot features. In simulation the robot can be controlled exactly as if it was the physical hardware. The same skid-steer controller is running with the only difference being in the definition of the hardware interfaces. This means the simulation can be controlled with the iOS app or through the ros_navigation stack.
 
 
 ## tugbot_slam
 
-The video below demonstrates 2D SLAM using VLP-16 simulated in Gazebo. 
-
+The video below demonstrates 2D SLAM using a VLP-16 simulated in Gazebo. TugBot uses Google’s Cartographer SLAM package for ROS. The system was tested in the Gazebo simulation environment. The setup includes a simulation of an IMU which outputs data in the same format as the NAVIO IMU on the physical robot. The simulation also includes a Velodyne VLP-16 to provide point cloud data. In the video below, the robot is driven using the iOS remote control app, and builds up a detailed map of its environment.
 [![TugBot SLAM](http://img.youtube.com/vi/22iVpP1quD4/0.jpg)](http://www.youtube.com/watch?v=22iVpP1quD4 "TugBot SLAM")
