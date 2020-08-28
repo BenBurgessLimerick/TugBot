@@ -18,9 +18,9 @@ The TugBot is a four wheel drive skid steer platform. Propulsion is achieved thr
 Unfortunately, the ODrive does not yet have a well supported C++ ROS driver, so a basic driver was developed: [odrive_cpp_ros](https://github.com/BenBurgessLimerick/odrive_cpp_
 
 # TugBot iOS Remote Control App
-The TugBot can be controlled from an iOS enabled phone or tablet through the custom built iOS app. This app publishes ROS messages to control the robot. I’m the screenshot of the interface below, the beach-scape picture is a placeholder for what will become a live video feed from the TugBot’s on board camera. 
+The TugBot can be controlled from an iOS enabled phone or tablet through the custom built iOS app. This app publishes ROS messages to control the robot. The video stream shown comes directly from a camera mounted at the front of the robot.
 
-![TugBot iOS App](ED43DE6C-0CCA-4DB3-9CCC-B185DBD83CA2.png)
+![TugBot iOS App](images/tugbot_ios_app/TugBotAppDemo.gif)
 
 # ROS Packages
 The skid steer design of the TugBot is similar to the design of Clearpath’s [Husky](https://clearpathrobotics.com/husky-unmanned-ground-vehicle-robot/). The Husky is also developed on the ROS platform and provided the perfect starting point to begin the journey of learning ROS, and deploying it on custom hardware. Most of the ROS packages below are adapted from packages designed for the Husky ([available here](https://github.com/husky/husky)).
